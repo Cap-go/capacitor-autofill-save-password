@@ -1,37 +1,64 @@
 {
-  "name": "capacitor-ios-autofill-save-password",
-  "version": "5.0.0",
+  "name": "@capgo/capacitor-ios-autofill-save-password",
+  "version": "7.0.0",
   "description": "Prompt to display dialog for saving password to keychain for iOS webview app.",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "scripts": {
+    "verify": "npm run verify:ios && npm run verify:android && npm run verify:web",
+    "verify:ios": "xcodebuild -scheme StreamCall -destination generic/platform=iOS",
+    "verify:android": "cd android && ./gradlew clean build test && cd ..",
+    "verify:web": "npm run build",
+    "lint": "npm run eslint && npm run prettier -- --check && npm run swiftlint -- lint",
+    "fmt": "npm run eslint -- --fix && npm run prettier -- --write && npm run swiftlint -- --fix --format",
+    "eslint": "eslint . --ext ts",
+    "prettier": "prettier \"**/*.{css,html,ts,js,java}\" --plugin=prettier-plugin-java",
     "swiftlint": "node-swiftlint",
-    "build": "npm run clean && tsc && rollup -c rollup.config.js",
-    "ios:build": "cd ios && pod install && cd ..",
+    "docgen": "docgen --api SavePasswordPlugin --output-readme README.md --output-json dist/docs.json",
+    "build": "npm run clean && npm run docgen && tsc && rollup -c rollup.config.mjs",
     "clean": "rimraf ./dist",
     "watch": "tsc --watch",
-    "prepublishOnly": "npm run build && npm run ios:build"
+    "prepublishOnly": "npm run build"
   },
-  "author": "Cuong Phan",
+  "author": "Martin Donadieu <martin@capgo.app>",
   "license": "MIT",
   "devDependencies": {
-    "@capacitor/core": "^6.0.0",
-    "@capacitor/ios": "^6.0.0",
-    "@ionic/swiftlint-config": "^1.0.0",
-    "@rollup/plugin-node-resolve": "^8.1.0",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.58.0",
-    "swiftlint": "^1.0.1",
-    "typescript": "^4.1.0"
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/docgen": "^0.3.0",
+    "@capacitor/ios": "^7.0.0",
+    "@ionic/eslint-config": "^0.4.0",
+    "@ionic/prettier-config": "^4.0.0",
+    "@ionic/swiftlint-config": "^2.0.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.5.0",
+    "prettier-plugin-java": "^2.6.7",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.34.6",
+    "swiftlint": "^2.0.0",
+    "typescript": "^5.7.3"
   },
   "peerDependencies": {
-    "@capacitor/core": ">=6.0.0"
+    "@capacitor/core": ">=7.0.0"
+  },
+  "prettier": "@ionic/prettier-config",
+  "swiftlint": "@ionic/swiftlint-config",
+  "eslintConfig": {
+    "extends": "@ionic/eslint-config/recommended"
+  },
+  "capacitor": {
+    "ios": {
+      "src": "ios"
+    },
+    "android": {
+      "src": "android"
+    }
   },
   "files": [
     "dist/",
     "ios/",
-    "CapacitorIosAutofillSavePassword.podspec",
+    "CapgoCapacitorIosAutofillSavePassword.podspec",
     "Package.swift"
   ],
   "keywords": [
@@ -42,12 +69,6 @@
     "autofill",
     "keychain"
   ],
-  "capacitor": {
-    "ios": {
-      "src": "ios"
-    }
-  },
-  "swiftlint": "@ionic/swiftlint-config",
   "repository": {
     "type": "git",
     "url": "https://github.com/cuongpl/capacitor-ios-autofill-save-password.git"
