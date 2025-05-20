@@ -40,6 +40,7 @@ class LoginScreenViewController: UIViewController {
         textField.frame.size.width = 1
         textField.frame.size.height = 1
         textField.textContentType = .newPassword
+        // Fix: from https://stackoverflow.com/questions/76773166/password-autofill-wkwebview-doesnt-present-save-password-alert#comment140186929_76773167
         return textField
     }()
     
