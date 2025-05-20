@@ -17,6 +17,7 @@ public class SavePassword: CAPPlugin, CAPBridgedPlugin {
             loginScreen.passwordTextField.text = call.getString("password") ?? ""
             self.bridge?.webView?.addSubview(loginScreen.view)
             loginScreen.view.removeFromSuperview()
+            call.resolve()
         }
     }
 }
