@@ -56,6 +56,7 @@ class LoginScreenViewController: UIViewController {
         view.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         view.addSubview(usernameTextField)
         view.addSubview(passwordTextField)
-        usernameTextField.becomeFirstResponder()
+        // Make password the first responder so the strong-password prompt or save-password alert triggers reliably
+        passwordTextField.becomeFirstResponder()
     }
 }
