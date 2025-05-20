@@ -1,6 +1,7 @@
 import { SavePassword } from '@capgo/capacitor-autofill-save-password';
 
-window.testEcho = () => {
-    const inputValue = document.getElementById("echoInput").value;
-    SavePassword.echo({ value: inputValue })
+window.testPromptDialog = () => {
+    const username = document.getElementById("usernameInput").value;
+    const password = document.getElementById("passwordInput").value;
+    SavePassword.promptDialog({ username, password })
 }
