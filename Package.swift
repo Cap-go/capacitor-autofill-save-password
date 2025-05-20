@@ -2,27 +2,27 @@
 import PackageDescription
 
 let package = Package(
-    name: "CapgoCapacitorIosAutofillSavePassword",
+    name: "CapgoCapacitorAutofillSavePassword",
     platforms: [.iOS(.v14)],
     products: [
         .library(
-            name: "CapgoCapacitorIosAutofillSavePassword",
-            targets: ["SavePassword"])
+            name: "CapgoCapacitorAutofillSavePassword",
+            targets: ["SavePasswordPlugin"])
     ],
     dependencies: [
         .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", from: "7.0.0")
     ],
     targets: [
         .target(
-            name: "SavePassword",
+            name: "SavePasswordPlugin",
             dependencies: [
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "Cordova", package: "capacitor-swift-pm")
             ],
-            path: "ios/Plugin"),
+            path: "ios/Sources/SavePasswordPlugin"),
         .testTarget(
-            name: "PluginTests",
-            dependencies: ["SavePassword"],
-            path: "ios/PluginTests")
+            name: "SavePasswordPluginTests",
+            dependencies: ["SavePasswordPlugin"],
+            path: "ios/Tests/SavePasswordPluginTests")
     ]
 )

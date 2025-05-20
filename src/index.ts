@@ -1,9 +1,10 @@
-import { registerPlugin } from "@capacitor/core";
-import { SavePasswordPlugin } from "./definitions";
+import { registerPlugin } from '@capacitor/core';
 
-const SavePassword = registerPlugin<SavePasswordPlugin>("SavePassword", {
-  web: () => import("./web").then((m) => new m.SavePasswordWeb()),
+import type { SavePasswordPlugin } from './definitions';
+
+const SavePassword = registerPlugin<SavePasswordPlugin>('SavePassword', {
+  web: () => import('./web').then((m) => new m.SavePasswordWeb()),
 });
 
-export * from "./definitions";
+export * from './definitions';
 export { SavePassword };

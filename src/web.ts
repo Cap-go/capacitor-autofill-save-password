@@ -1,5 +1,6 @@
-import { WebPlugin } from "@capacitor/core";
-import { Options, SavePasswordPlugin } from "./definitions";
+import { WebPlugin } from '@capacitor/core';
+
+import type { Options, SavePasswordPlugin } from './definitions';
 
 export class SavePasswordWeb extends WebPlugin implements SavePasswordPlugin {
   async promptDialog(options: Options): Promise<void> {

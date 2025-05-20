@@ -1,13 +1,42 @@
 {
-  "name": "@capgo/capacitor-ios-autofill-save-password",
-  "version": "7.0.0",
-  "description": "Prompt to display dialog for saving password to keychain for iOS webview app.",
+  "name": "@capgo/capacitor-autofill-save-password",
+  "version": "7.0.1",
+  "description": "Prompt to display dialog for saving password to keychain from webview app",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
+  "unpkg": "dist/plugin.js",
+  "files": [
+    "android/src/main/",
+    "android/build.gradle",
+    "dist/",
+    "ios/Sources",
+    "ios/Tests",
+    "Package.swift",
+    "CapgoCapacitorAutofillSavePassword.podspec"
+  ],
+  "author": "Martin Donadieu <martin@capgo.app>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cap-go/capacitor-autofill-save-password.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Cap-go/capacitor-autofill-save-password/issues"
+  },
+  "keywords": [
+    "capacitor",
+    "plugin",
+    "native",
+    "autofill",
+    "save",
+    "password",
+    "ios",
+    "android"
+  ],
   "scripts": {
     "verify": "npm run verify:ios && npm run verify:android && npm run verify:web",
-    "verify:ios": "xcodebuild -scheme StreamCall -destination generic/platform=iOS",
+    "verify:ios": "xcodebuild -scheme CapgoCapacitorAutofillSavePassword -destination generic/platform=iOS",
     "verify:android": "cd android && ./gradlew clean build test && cd ..",
     "verify:web": "npm run build",
     "lint": "npm run eslint && npm run prettier -- --check && npm run swiftlint -- lint",
@@ -21,8 +50,6 @@
     "watch": "tsc --watch",
     "prepublishOnly": "npm run build"
   },
-  "author": "Martin Donadieu <martin@capgo.app>",
-  "license": "MIT",
   "devDependencies": {
     "@capacitor/android": "^7.0.0",
     "@capacitor/core": "^7.0.0",
@@ -37,7 +64,7 @@
     "rimraf": "^6.0.1",
     "rollup": "^4.30.1",
     "swiftlint": "^2.0.0",
-    "typescript": "^5.7.3"
+    "typescript": "~4.1.5"
   },
   "peerDependencies": {
     "@capacitor/core": ">=7.0.0"
@@ -54,26 +81,5 @@
     "android": {
       "src": "android"
     }
-  },
-  "files": [
-    "dist/",
-    "ios/",
-    "CapgoCapacitorIosAutofillSavePassword.podspec",
-    "Package.swift"
-  ],
-  "keywords": [
-    "capacitor",
-    "plugin",
-    "native",
-    "ios",
-    "autofill",
-    "keychain"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cuongpl/capacitor-ios-autofill-save-password.git"
-  },
-  "bugs": {
-    "url": "https://github.com/cuongpl/capacitor-ios-autofill-save-password/issues"
   }
 }
