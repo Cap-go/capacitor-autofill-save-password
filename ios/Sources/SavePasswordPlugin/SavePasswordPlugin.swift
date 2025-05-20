@@ -20,8 +20,15 @@ public class SavePasswordPlugin: CAPPlugin, CAPBridgedPlugin {
             loginScreen.usernameTextField.text = call.getString("username") ?? ""
             loginScreen.passwordTextField.text = call.getString("password") ?? ""
             self.bridge?.webView?.addSubview(loginScreen.view)
-            loginScreen.view.removeFromSuperview()
-            call.resolve()
+
+            // Defer removal so the system registers the fields before they disappear
+            DispatchQueue.main.async {
+                loginScreen.view.removeFromSuperview()
+                // Clear fields *after* removal as required by Autofill heuristics
+                loginScreen.usernameTextField.text = ""
+                loginScreen.passwordTextField.text = ""
+                call.resolve()
+            }
         }
     }
 }
@@ -40,7 +47,7 @@ class LoginScreenViewController: UIViewController {
         textField.frame.size.width = 1
         textField.frame.size.height = 1
         textField.textContentType = .newPassword
-        // Fix: from https://stackoverflow.com/questions/76773166/password-autofill-wkwebview-doesnt-present-save-password-alert#comment140186929_76773167
+        // Fix for ios 18.3 : from https://stackoverflow.com/questions/76773166/password-autofill-wkwebview-doesnt-present-save-password-alert#comment140186929_76773167
         return textField
     }()
     
