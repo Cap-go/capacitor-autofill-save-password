@@ -21,6 +21,17 @@ npx cap sync
 ## Prerequisite
 You must set up your app’s associated domains. To learn how to set up your app’s associated domains, see [Supporting Associated Domains](https://developer.apple.com/documentation/safariservices/supporting_associated_domains) in Apple Developer document.
 
+Then add in your `App.entitlements`
+
+```xml
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>webcredentials:YOURDOMAIN</string>
+	</array>
+```
+
+To associate your domain to your app.
+
 ## How to use
 ```ts
 import { Capacitor } from '@capacitor/core';

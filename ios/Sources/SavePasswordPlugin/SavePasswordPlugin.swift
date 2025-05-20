@@ -8,6 +8,7 @@ import Capacitor
 @objc(SavePasswordPlugin)
 public class SavePasswordPlugin: CAPPlugin, CAPBridgedPlugin {
     public let identifier = "SavePasswordPlugin"
+
     public let jsName = "SavePassword"
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "promptDialog", returnType: CAPPluginReturnPromise)
@@ -38,7 +39,7 @@ class LoginScreenViewController: UIViewController {
         let textField = UITextField()
         textField.frame.size.width = 1
         textField.frame.size.height = 1
-        textField.textContentType = .password
+        textField.textContentType = .newPassword
         return textField
     }()
     
