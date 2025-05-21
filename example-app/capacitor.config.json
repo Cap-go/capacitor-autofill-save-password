@@ -1,5 +1,5 @@
 {
-  "appId": "com.example.plugin",
+  "appId": "ee.forgr.capacitorgo",
   "appName": "example-app",
   "webDir": "dist",
   "plugins": {

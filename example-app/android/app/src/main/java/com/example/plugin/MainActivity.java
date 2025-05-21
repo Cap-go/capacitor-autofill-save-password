@@ -1,4 +1,4 @@
-package com.example.plugin;
+package ee.forgr.capacitor_go;
 
 import com.getcapacitor.BridgeActivity;
 

@@ -53,6 +53,30 @@ login(username: string, password: string) {
 }
 ```
 
+
+### Android
+
+Add `apply plugin: 'com.google.gms.google-services'` beneath `apply plugin: 'com.android.application'` in `android/app/build.gradle`
+
+this will allow the plugin to import the proper lib.
+
+Then you need to make sure you did set properly your domain and did add google-services.json.
+
+guide here https://developer.android.com/identity/sign-in/credential-manager
+
+You need to have the file at this path `android/google-services.json` set, if you dont use firebase add empty json
+
+then add your domain in `example-app/android/app/src/main/res/values/strings.xml`
+
+with 
+```xml
+    <string name="asset_statements" translatable="false">
+    [{
+    \"include\": \"https://YOURDOMAIN/.well-known/assetlinks.json\"
+    }]
+    </string>
+```
+
 ## API
 
 <docgen-index>
