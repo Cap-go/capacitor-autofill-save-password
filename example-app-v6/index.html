@@ -1,13 +1,28 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr" class="hydrated">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Example Capacitor App</title>
+    <meta
+      name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="format-detection" content="telephone=no" />
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <main>
+      <h1>Capacitor Test Plugin Project</h1>
+      <p>
+        This project can be used to test out the functionality of your plugin. Nothing in the
+        <em>example-app/</em> folder will be published to npm when using this template, so you can create away!
+      </p>
+      <label for="usernameInput">Username:</label>
+      <input type="email" autocomplete="username" id="usernameInput" name="usernameInput" value="Hello World!" />
+      <label for="passwordInput">Password:</label>
+      <input type="password" autocomplete="current-password" id="passwordInput" name="passwordInput" value="Hello World!" />
+      <button onclick="testPromptDialog()">Click Me!</button>
+    </main>
+
+    <script src="./src/main.ts" type="module"></script>
   </body>
 </html>
