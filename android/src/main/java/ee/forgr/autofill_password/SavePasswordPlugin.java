@@ -3,34 +3,31 @@ package ee.forgr.autofill_password;
 import android.app.Activity;
 import android.os.Build;
 import android.util.Log;
-
-import androidx.credentials.CredentialManager;
-import androidx.credentials.CreatePasswordRequest;
+import androidx.core.content.ContextCompat;
 import androidx.credentials.CreateCredentialResponse;
-import androidx.credentials.GetPasswordOption;
-import androidx.credentials.PendingGetCredentialRequest;
+import androidx.credentials.CreatePasswordRequest;
+import androidx.credentials.CredentialManager;
 import androidx.credentials.CredentialManagerCallback;
-import androidx.credentials.exceptions.CreateCredentialException;
 import androidx.credentials.GetCredentialRequest;
 import androidx.credentials.GetCredentialResponse;
+import androidx.credentials.GetPasswordOption;
 import androidx.credentials.PasswordCredential;
+import androidx.credentials.PendingGetCredentialRequest;
+import androidx.credentials.exceptions.CreateCredentialException;
 import androidx.credentials.exceptions.GetCredentialException;
-
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.core.content.ContextCompat;
-
 @CapacitorPlugin(name = "SavePassword")
 public class SavePasswordPlugin extends Plugin {
+
     private static final String TAG = "CredentialManager";
     private CredentialManager credentialManager;
     private Map<String, PendingGetCredentialRequest> pendingRequestsByElementId = new HashMap<>();
@@ -67,7 +64,7 @@ public class SavePasswordPlugin extends Plugin {
         try {
             // Build request directly with username & password (API 1.5.0 signature)
             CreatePasswordRequest request = new CreatePasswordRequest(username, password);
-            
+
             // Execute on main thread
             bridge.executeOnMainThread(() -> {
                 Activity activity = getActivity();
@@ -111,7 +108,6 @@ public class SavePasswordPlugin extends Plugin {
 
         try {
             GetCredentialRequest request = new GetCredentialRequest(List.of(new GetPasswordOption()));
-
 
             bridge.executeOnMainThread(() -> {
                 Activity activity = getActivity();

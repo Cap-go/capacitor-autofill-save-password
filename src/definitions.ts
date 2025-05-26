@@ -18,7 +18,6 @@ export interface Options {
   url?: string;
 }
 
-
 export interface ReadPasswordResult {
   /**
    * The username of the password.

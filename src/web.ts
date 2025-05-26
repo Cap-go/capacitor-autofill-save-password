@@ -7,6 +7,6 @@ export class SavePasswordWeb extends WebPlugin implements SavePasswordPlugin {
     throw new Error('Method not implemented.');
   }
   async promptDialog(options: Options): Promise<void> {
-    throw new Error("Not implemented on web" + JSON.stringify(options));
+    throw new Error('Not implemented on web' + JSON.stringify(options));
   }
 }
