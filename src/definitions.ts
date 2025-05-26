@@ -48,7 +48,7 @@ export interface SavePasswordPlugin {
 
   /**
    * Read a password from the keychain. Requires the developer to setup associated domain for the app for iOS.
-   * @returns {Promise<void>} Success status
+   * @returns {Promise<ReadPasswordResult>} The retrieved password credentials
    */
   readPassword(): Promise<ReadPasswordResult>;
 }
