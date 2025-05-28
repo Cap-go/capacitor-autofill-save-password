@@ -11,6 +11,22 @@ export interface Options {
    * The password to save.
    */
   password: string;
+  /**
+   * The url to save the password for. (For example: "web.capgo.app")
+   * iOS only.
+   */
+  url?: string;
+}
+
+export interface ReadPasswordResult {
+  /**
+   * The username of the password.
+   */
+  username: string;
+  /**
+   * The password of the password.
+   */
+  password: string;
 }
 
 /**
@@ -29,4 +45,10 @@ export interface SavePasswordPlugin {
    * });
    */
   promptDialog(options: Options): Promise<void>;
+
+  /**
+   * Read a password from the keychain. Requires the developer to setup associated domain for the app for iOS.
+   * @returns {Promise<ReadPasswordResult>} The retrieved password credentials
+   */
+  readPassword(): Promise<ReadPasswordResult>;
 }
