@@ -82,6 +82,7 @@ with
 <docgen-index>
 
 * [`promptDialog(...)`](#promptdialog)
+* [`readPassword()`](#readpassword)
 * [Interfaces](#interfaces)
 
 </docgen-index>
@@ -104,14 +105,36 @@ Save a password to the keychain.
 --------------------
 
 
+### readPassword()
+
+```typescript
+readPassword() => Promise<ReadPasswordResult>
+```
+
+Read a password from the keychain. Requires the developer to setup associated domain for the app for iOS.
+
+**Returns:** <code>Promise&lt;<a href="#readpasswordresult">ReadPasswordResult</a>&gt;</code>
+
+--------------------
+
+
 ### Interfaces
 
 
 #### Options
 
-| Prop           | Type                | Description           |
-| -------------- | ------------------- | --------------------- |
-| **`username`** | <code>string</code> | The username to save. |
-| **`password`** | <code>string</code> | The password to save. |
+| Prop           | Type                | Description                                                                |
+| -------------- | ------------------- | -------------------------------------------------------------------------- |
+| **`username`** | <code>string</code> | The username to save.                                                      |
+| **`password`** | <code>string</code> | The password to save.                                                      |
+| **`url`**      | <code>string</code> | The url to save the password for. (For example: "web.capgo.app") iOS only. |
+
+
+#### ReadPasswordResult
+
+| Prop           | Type                | Description                   |
+| -------------- | ------------------- | ----------------------------- |
+| **`username`** | <code>string</code> | The username of the password. |
+| **`password`** | <code>string</code> | The password of the password. |
 
 </docgen-api>
