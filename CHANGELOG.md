@@ -1,6 +1,13 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [7.1.2](https://github.com/Cap-go/capacitor-autofill-save-password/compare/7.1.1...7.1.2) (2025-10-26)
+
+
+### Bug Fixes
+
+* build script ([48c9635](https://github.com/Cap-go/capacitor-autofill-save-password/commit/48c9635054746fd30cbe133e5dee9fd35a357ef7))
 
 ### [7.1.1](https://github.com/Cap-go/capacitor-autofill-save-password/compare/7.1.0...7.1.1) (2025-07-19)
 
