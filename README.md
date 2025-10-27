@@ -87,6 +87,7 @@ with
 
 * [`promptDialog(...)`](#promptdialog)
 * [`readPassword()`](#readpassword)
+* [`getPluginVersion()`](#getpluginversion)
 * [Interfaces](#interfaces)
 
 </docgen-index>
@@ -118,6 +119,21 @@ readPassword() => Promise<ReadPasswordResult>
 Read a password from the keychain. Requires the developer to setup associated domain for the app for iOS.
 
 **Returns:** <code>Promise&lt;<a href="#readpasswordresult">ReadPasswordResult</a>&gt;</code>
+
+--------------------
+
+
+### getPluginVersion()
+
+```typescript
+getPluginVersion() => Promise<{ version: string; }>
+```
+
+Get the native Capacitor plugin version.
+
+**Returns:** <code>Promise&lt;{ version: string; }&gt;</code>
+
+**Since:** 1.0.0
 
 --------------------
 
