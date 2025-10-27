@@ -51,4 +51,12 @@ export interface SavePasswordPlugin {
    * @returns {Promise<ReadPasswordResult>} The retrieved password credentials
    */
   readPassword(): Promise<ReadPasswordResult>;
+
+  /**
+   * Get the native Capacitor plugin version.
+   *
+   * @returns Promise that resolves with the plugin version
+   * @since 1.0.0
+   */
+  getPluginVersion(): Promise<{ version: string }>;
 }

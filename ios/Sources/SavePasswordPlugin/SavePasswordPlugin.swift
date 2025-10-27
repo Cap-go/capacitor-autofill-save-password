@@ -9,12 +9,14 @@ import AuthenticationServices
  */
 @objc(SavePasswordPlugin)
 public class SavePasswordPlugin: CAPPlugin, CAPBridgedPlugin, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    private let PLUGIN_VERSION: String = "7.1.5"
     public let identifier = "SavePasswordPlugin"
 
     public let jsName = "SavePassword"
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "promptDialog", returnType: CAPPluginReturnPromise),
-        CAPPluginMethod(name: "readPassword", returnType: CAPPluginReturnPromise)
+        CAPPluginMethod(name: "readPassword", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getPluginVersion", returnType: CAPPluginReturnPromise)
     ]
 
     @objc func promptDialog(_ call: CAPPluginCall) {
@@ -96,5 +98,9 @@ public class SavePasswordPlugin: CAPPlugin, CAPBridgedPlugin, ASAuthorizationCon
     // MARK: - ASAuthorizationControllerPresentationContextProviding
     public func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.bridge?.viewController?.view.window ?? ASPresentationAnchor()
+    }
+
+    @objc func getPluginVersion(_ call: CAPPluginCall) {
+        call.resolve(["version": self.PLUGIN_VERSION])
     }
 }

@@ -28,6 +28,7 @@ import java.util.Map;
 @CapacitorPlugin(name = "SavePassword")
 public class SavePasswordPlugin extends Plugin {
 
+    private final String PLUGIN_VERSION = "7.1.5";
     private static final String TAG = "CredentialManager";
     private CredentialManager credentialManager;
     private Map<String, PendingGetCredentialRequest> pendingRequestsByElementId = new HashMap<>();
@@ -163,5 +164,16 @@ public class SavePasswordPlugin extends Plugin {
         }
 
         return true;
+    }
+
+    @PluginMethod
+    public void getPluginVersion(final PluginCall call) {
+        try {
+            final JSObject ret = new JSObject();
+            ret.put("version", this.PLUGIN_VERSION);
+            call.resolve(ret);
+        } catch (final Exception e) {
+            call.reject("Could not get plugin version", e);
+        }
     }
 }
