@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [7.2.2](https://github.com/Cap-go/capacitor-autofill-save-password/compare/7.2.1...7.2.2) (2025-10-29)
+
+
+### Bug Fixes
+
+* CI/CD config ([f64d916](https://github.com/Cap-go/capacitor-autofill-save-password/commit/f64d916e90269e2de53b7c0b48612d6f009e6ec8))
+* update AI model in build workflow ([f040278](https://github.com/Cap-go/capacitor-autofill-save-password/commit/f0402784f9d48b291d2912169b8c540e12559e7f))
+* update github action ([96e735c](https://github.com/Cap-go/capacitor-autofill-save-password/commit/96e735c09e9c018145a27712d2798341aac36cb0))
+
 ## [7.2.1](https://github.com/Cap-go/capacitor-autofill-save-password/compare/7.2.0...7.2.1) (2025-10-27)
 
 
