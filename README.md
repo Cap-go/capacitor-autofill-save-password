@@ -147,7 +147,7 @@ Get the native Capacitor plugin version.
 | -------------- | ------------------- | -------------------------------------------------------------------------- |
 | **`username`** | <code>string</code> | The username to save.                                                      |
 | **`password`** | <code>string</code> | The password to save.                                                      |
-| **`url`**      | <code>string</code> | The url to save the password for. (For example: "web.capgo.app") iOS only. |
+| **`url`**      | <code>string</code> | The url to save the password for. (For example: "console.capgo.app") iOS only. |
 
 
 #### ReadPasswordResult

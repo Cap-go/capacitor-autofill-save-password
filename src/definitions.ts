@@ -12,7 +12,7 @@ export interface Options {
    */
   password: string;
   /**
-   * The url to save the password for. (For example: "web.capgo.app")
+   * The url to save the password for. (For example: "console.capgo.app")
    * iOS only.
    */
   url?: string;
