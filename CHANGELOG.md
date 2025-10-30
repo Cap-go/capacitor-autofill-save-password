@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [7.2.4](https://github.com/Cap-go/capacitor-autofill-save-password/compare/7.2.3...7.2.4) (2025-10-30)
+
+
+### Bug Fixes
+
+* update URL references from web.capgo.app to console.capgo.app ([7cafaa9](https://github.com/Cap-go/capacitor-autofill-save-password/commit/7cafaa972b2f5a242c36466f3b5b1e240050d18a))
+
 ## [7.2.3](https://github.com/Cap-go/capacitor-autofill-save-password/compare/7.2.2...7.2.3) (2025-10-30)
 
 
