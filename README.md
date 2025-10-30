@@ -143,10 +143,10 @@ Get the native Capacitor plugin version.
 
 #### Options
 
-| Prop           | Type                | Description                                                                |
-| -------------- | ------------------- | -------------------------------------------------------------------------- |
-| **`username`** | <code>string</code> | The username to save.                                                      |
-| **`password`** | <code>string</code> | The password to save.                                                      |
+| Prop           | Type                | Description                                                                    |
+| -------------- | ------------------- | ------------------------------------------------------------------------------ |
+| **`username`** | <code>string</code> | The username to save.                                                          |
+| **`password`** | <code>string</code> | The password to save.                                                          |
 | **`url`**      | <code>string</code> | The url to save the password for. (For example: "console.capgo.app") iOS only. |
 
 
