@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [7.2.3](https://github.com/Cap-go/capacitor-autofill-save-password/compare/7.2.2...7.2.3) (2025-10-30)
+
+
+### Bug Fixes
+
+* pluginVersion lint issue ([d9623ae](https://github.com/Cap-go/capacitor-autofill-save-password/commit/d9623ae5c9ab6ac0222a8c21c2531c6d33b56673))
+
 ## [7.2.2](https://github.com/Cap-go/capacitor-autofill-save-password/compare/7.2.1...7.2.2) (2025-10-29)
 
 

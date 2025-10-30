@@ -1,6 +1,6 @@
 {
   "name": "@capgo/capacitor-autofill-save-password",
-  "version": "7.2.2",
+  "version": "7.2.3",
   "description": "Prompt to display dialog for saving password to keychain from webview app",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
