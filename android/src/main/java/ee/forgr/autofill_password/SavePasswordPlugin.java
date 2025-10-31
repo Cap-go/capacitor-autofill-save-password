@@ -28,7 +28,7 @@ import java.util.Map;
 @CapacitorPlugin(name = "SavePassword")
 public class SavePasswordPlugin extends Plugin {
 
-    private final String pluginVersion = "7.2.4";
+    private final String pluginVersion = "7.2.5";
     private static final String TAG = "CredentialManager";
     private CredentialManager credentialManager;
     private Map<String, PendingGetCredentialRequest> pendingRequestsByElementId = new HashMap<>();

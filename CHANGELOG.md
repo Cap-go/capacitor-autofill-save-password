@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [7.2.5](https://github.com/Cap-go/capacitor-autofill-save-password/compare/7.2.4...7.2.5) (2025-10-31)
+
+
+### Bug Fixes
+
+* remove WIP status ([ee2b4b4](https://github.com/Cap-go/capacitor-autofill-save-password/commit/ee2b4b4c1b3ed25b648ffb9604a2481fc1621529))
+
 ## [7.2.4](https://github.com/Cap-go/capacitor-autofill-save-password/compare/7.2.3...7.2.4) (2025-10-30)
 
 
