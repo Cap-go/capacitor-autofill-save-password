@@ -13,8 +13,6 @@ Fork of original plugin to work with Capacitor 7
 
 IOS work for old versions and 18.3
 
-Android still WIP
-
 ## Documentation
 
 The most complete doc is available here: https://capgo.app/docs/plugins/autofill-save-password/
