@@ -9,7 +9,7 @@ import AuthenticationServices
  */
 @objc(SavePasswordPlugin)
 public class SavePasswordPlugin: CAPPlugin, CAPBridgedPlugin, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
-    private let pluginVersion: String = "7.2.5"
+    private let pluginVersion: String = "7.2.6"
     public let identifier = "SavePasswordPlugin"
 
     public let jsName = "SavePassword"
