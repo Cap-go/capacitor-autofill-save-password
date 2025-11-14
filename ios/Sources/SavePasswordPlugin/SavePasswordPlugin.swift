@@ -1,62 +1,106 @@
 import Foundation
 import Capacitor
+import Security
+import AuthenticationServices
 
 /**
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitorjs.com/docs/plugins/ios
  */
 @objc(SavePasswordPlugin)
-public class SavePasswordPlugin: CAPPlugin, CAPBridgedPlugin {
+public class SavePasswordPlugin: CAPPlugin, CAPBridgedPlugin, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    private let pluginVersion: String = "6.0.1"
     public let identifier = "SavePasswordPlugin"
 
     public let jsName = "SavePassword"
     public let pluginMethods: [CAPPluginMethod] = [
-        CAPPluginMethod(name: "promptDialog", returnType: CAPPluginReturnPromise)
+        CAPPluginMethod(name: "promptDialog", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "readPassword", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getPluginVersion", returnType: CAPPluginReturnPromise)
     ]
 
     @objc func promptDialog(_ call: CAPPluginCall) {
-        DispatchQueue.main.async {
-            let loginScreen = LoginScreenViewController()
-            loginScreen.usernameTextField.text = call.getString("username") ?? ""
-            loginScreen.passwordTextField.text = call.getString("password") ?? ""
-            self.bridge?.webView?.addSubview(loginScreen.view)
-
-            // Defer removal so the system registers the fields before they disappear
+        guard let username = call.getString("username"),
+              let password = call.getString("password") else {
+            call.reject("Username and password are required")
+            return
+        }
+        guard let url = call.getString("url") else {
+            call.reject("URL is required for iOS shared web credentials")
+            return
+        }
+        let fqdn = url as CFString
+        let user = username as CFString
+        let pass = password as CFString
+        SecAddSharedWebCredential(fqdn, user, pass) { error in
             DispatchQueue.main.async {
-                loginScreen.view.removeFromSuperview()
-                // Clear fields *after* removal as required by Autofill heuristics
-                loginScreen.usernameTextField.text = ""
-                loginScreen.passwordTextField.text = ""
-                call.resolve()
+                if let error = error {
+                    let cfError = error as CFError
+                    let description = CFErrorCopyDescription(cfError) as String? ?? "Unknown error"
+                    call.reject("Failed to save credential", description)
+                } else {
+                    call.resolve()
+                }
             }
         }
     }
-}
 
-class LoginScreenViewController: UIViewController {
-    let usernameTextField: UITextField = {
-        let textField = UITextField()
-        textField.frame.size.width = 1
-        textField.frame.size.height = 1
-        textField.textContentType = .username
-        return textField
-    }()
-    
-    let passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.frame.size.width = 1
-        textField.frame.size.height = 1
-        textField.textContentType = .newPassword
-        // Fix for ios 18.3 : from https://stackoverflow.com/questions/76773166/password-autofill-wkwebview-doesnt-present-save-password-alert#comment140186929_76773167
-        return textField
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-        view.addSubview(usernameTextField)
-        view.addSubview(passwordTextField)
-        // Make password the first responder so the strong-password prompt or save-password alert triggers reliably
-        passwordTextField.becomeFirstResponder()
+    @objc func readPassword(_ call: CAPPluginCall) {
+        if #available(iOS 12.0, *) {
+            DispatchQueue.main.async {
+                let passwordRequest = ASAuthorizationPasswordProvider().createRequest()
+                let authController = ASAuthorizationController(authorizationRequests: [passwordRequest])
+                self.currentReadCall = call
+                authController.delegate = self
+                authController.presentationContextProvider = self
+                authController.performRequests()
+            }
+        } else {
+            call.reject("Password autofill not available on this iOS version")
+        }
+    }
+
+    private var currentReadCall: CAPPluginCall?
+    private var currentCall: CAPPluginCall?
+
+    public func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let passwordCredential = authorization.credential as? ASPasswordCredential {
+            if let call = currentReadCall {
+                call.resolve([
+                    "username": passwordCredential.user,
+                    "password": passwordCredential.password
+                ])
+                currentReadCall = nil
+                return
+            }
+            currentCall?.resolve([
+                "username": passwordCredential.user,
+                "password": passwordCredential.password
+            ])
+        } else {
+            currentReadCall?.resolve()
+            currentReadCall = nil
+            currentCall?.resolve()
+            currentCall = nil
+        }
+    }
+
+    public func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        if let call = currentReadCall {
+            call.reject("Autofill failed", error.localizedDescription)
+            currentReadCall = nil
+            return
+        }
+        currentCall?.reject("Autofill failed", error.localizedDescription)
+        currentCall = nil
+    }
+
+    // MARK: - ASAuthorizationControllerPresentationContextProviding
+    public func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.bridge?.viewController?.view.window ?? ASPresentationAnchor()
+    }
+
+    @objc func getPluginVersion(_ call: CAPPluginCall) {
+        call.resolve(["version": self.pluginVersion])
     }
 }
