@@ -12,7 +12,6 @@ import androidx.credentials.GetCredentialRequest;
 import androidx.credentials.GetCredentialResponse;
 import androidx.credentials.GetPasswordOption;
 import androidx.credentials.PasswordCredential;
-import androidx.credentials.PendingGetCredentialRequest;
 import androidx.credentials.exceptions.CreateCredentialException;
 import androidx.credentials.exceptions.GetCredentialException;
 import com.getcapacitor.JSObject;
@@ -20,18 +19,14 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @CapacitorPlugin(name = "SavePassword")
 public class SavePasswordPlugin extends Plugin {
 
-    private final String pluginVersion = "6.0.1";
+    private final String pluginVersion = "6.0.2";
     private static final String TAG = "CredentialManager";
     private CredentialManager credentialManager;
-    private Map<String, PendingGetCredentialRequest> pendingRequestsByElementId = new HashMap<>();
 
     @Override
     public void load() {
