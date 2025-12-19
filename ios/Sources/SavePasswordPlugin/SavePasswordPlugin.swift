@@ -46,17 +46,13 @@ public class SavePasswordPlugin: CAPPlugin, CAPBridgedPlugin, ASAuthorizationCon
     }
 
     @objc func readPassword(_ call: CAPPluginCall) {
-        if #available(iOS 12.0, *) {
-            DispatchQueue.main.async {
-                let passwordRequest = ASAuthorizationPasswordProvider().createRequest()
-                let authController = ASAuthorizationController(authorizationRequests: [passwordRequest])
-                self.currentReadCall = call
-                authController.delegate = self
-                authController.presentationContextProvider = self
-                authController.performRequests()
-            }
-        } else {
-            call.reject("Password autofill not available on this iOS version")
+        DispatchQueue.main.async {
+            let passwordRequest = ASAuthorizationPasswordProvider().createRequest()
+            let authController = ASAuthorizationController(authorizationRequests: [passwordRequest])
+            self.currentReadCall = call
+            authController.delegate = self
+            authController.presentationContextProvider = self
+            authController.performRequests()
         }
     }
 
