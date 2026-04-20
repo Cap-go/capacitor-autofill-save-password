@@ -48,16 +48,17 @@ public class SavePasswordPlugin: CAPPlugin, CAPBridgedPlugin, ASAuthorizationCon
     @objc func readPassword(_ call: CAPPluginCall) {
         DispatchQueue.main.async {
             let passwordRequest = ASAuthorizationPasswordProvider().createRequest()
-            let authController = ASAuthorizationController(authorizationRequests: [passwordRequest])
+            self.authController = ASAuthorizationController(authorizationRequests: [passwordRequest])
             self.currentReadCall = call
-            authController.delegate = self
-            authController.presentationContextProvider = self
-            authController.performRequests()
+            self.authController?.delegate = self
+            self.authController?.presentationContextProvider = self
+            self.authController?.performRequests()
         }
     }
 
     private var currentReadCall: CAPPluginCall?
     private var currentCall: CAPPluginCall?
+    private var authController: ASAuthorizationController?
 
     public func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let passwordCredential = authorization.credential as? ASPasswordCredential {
@@ -79,6 +80,7 @@ public class SavePasswordPlugin: CAPPlugin, CAPBridgedPlugin, ASAuthorizationCon
             currentCall?.resolve()
             currentCall = nil
         }
+        self.authController = nil
     }
 
     public func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
@@ -89,6 +91,7 @@ public class SavePasswordPlugin: CAPPlugin, CAPBridgedPlugin, ASAuthorizationCon
         }
         currentCall?.reject("Autofill failed", error.localizedDescription)
         currentCall = nil
+        self.authController = nil
     }
 
     // MARK: - ASAuthorizationControllerPresentationContextProviding
