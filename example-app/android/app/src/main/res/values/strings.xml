@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">save-password</string>
     <string name="title_activity_main">example-app</string>
-    <string name="package_name">ee.forgr.capacitor_go</string>
+    <string name="package_name">app.capgo.autofill.save.password.example</string>
     <string name="custom_url_scheme">ee.forgr.capacitor_go</string>
     <string name="asset_statements" translatable="false">
     [{

@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:767796994084:android:ee29b5d17d3948cd80f8b1",
         "android_client_info": {
-          "package_name": "ee.forgr.capacitor_go"
+          "package_name": "app.capgo.autofill.save.password.example"
         }
       },
       "oauth_client": [],
