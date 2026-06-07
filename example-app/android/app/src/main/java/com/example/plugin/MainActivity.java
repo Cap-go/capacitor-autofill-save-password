@@ -1,4 +1,4 @@
-package ee.forgr.capacitor_go;
+package app.capgo.autofill.save.password.example;
 
 import com.getcapacitor.BridgeActivity;
 

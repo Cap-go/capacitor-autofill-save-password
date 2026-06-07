@@ -2,10 +2,10 @@ apply plugin: 'com.android.application'
 
 
 android {
-    namespace = "ee.forgr.capacitor_go"
+    namespace = "app.capgo.autofill.save.password.example"
     compileSdk = rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId = "ee.forgr.capacitor_go"
+        applicationId = "app.capgo.autofill.save.password.example"
         minSdkVersion = rootProject.ext.minSdkVersion
         targetSdkVersion = rootProject.ext.targetSdkVersion
         versionCode = 1
