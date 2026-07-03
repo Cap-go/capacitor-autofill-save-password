@@ -4,7 +4,7 @@ import pkg from './package.json';
 
 const config: CapacitorConfig = {
   appId: 'app.capgo.autofill.save.password.example',
-  appName: 'Autofill Save Password Example',
+  appName: '@capgo/capacitor-autofill-save-password',
   webDir: 'dist',
   plugins: {
     SplashScreen: {
