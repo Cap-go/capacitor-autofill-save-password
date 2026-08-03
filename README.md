@@ -108,6 +108,8 @@ On iOS 26.2 and later, `promptDialog` saves through [`ASCredentialDataManager`](
 
 Either way the `url` option names the domain the credential is saved against, and it must be one of the `webcredentials:` associated domains you set up above.
 
+Note the two paths differ in what they report back. `SecAddSharedWebCredential` surfaces a dismissed prompt as an error, so `promptDialog` rejects. `ASCredentialDataManager` only throws when the system rejects the update — Apple describe it as equivalent to submitting a password form, so the user's choice never reaches the app. On 26.2 and later, treat a resolved promise as "the system accepted the request", not as confirmation that the password was saved.
+
 On 26.2 and later you can also pass `title` to control the name the credential is filed under. Without it the password manager falls back to the bare domain, so users see `app.example.com` rather than your product name. The old API has no equivalent, so `title` is ignored below 26.2.
 
 ## API
@@ -131,6 +133,12 @@ promptDialog(options: Options) => Promise<void>
 ```
 
 Save a password to the keychain.
+
+On iOS 26.2 and later, resolving means the system accepted the request —
+not that the credential was stored. The save prompt belongs to the system
+and the user's choice is not reported back, so do not treat a resolved
+promise as confirmation. Below 26.2, and on Android, dismissing the prompt
+rejects.
 
 | Param         | Type                                        | Description                     |
 | ------------- | ------------------------------------------- | ------------------------------- |

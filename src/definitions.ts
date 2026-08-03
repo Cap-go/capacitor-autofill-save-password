@@ -42,8 +42,15 @@ export interface ReadPasswordResult {
 export interface SavePasswordPlugin {
   /**
    * Save a password to the keychain.
+   *
+   * On iOS 26.2 and later, resolving means the system accepted the request —
+   * not that the credential was stored. The save prompt belongs to the system
+   * and the user's choice is not reported back, so do not treat a resolved
+   * promise as confirmation. Below 26.2, and on Android, dismissing the prompt
+   * rejects.
+   *
    * @param {Options} options - The options for the password.
-   * @returns {Promise<void>} Success status
+   * @returns {Promise<void>}
    * @example
    * await SavePassword.promptDialog({
    *   username: 'your-username',
