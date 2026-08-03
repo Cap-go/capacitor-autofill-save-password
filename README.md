@@ -63,6 +63,10 @@ Then add in your `App.entitlements`
 
 To associate your domain to your app.
 
+### iOS 26.2 and later
+
+`promptDialog` saves through [`ASCredentialDataManager`](https://developer.apple.com/documentation/authenticationservices/ascredentialdatamanager), which routes the save to whichever credential provider the user has chosen — iCloud Keychain or a third-party manager. Below 26.2 it falls back to `SecAddSharedWebCredential`, which Apple deprecated in 26.2 and which only ever writes to iCloud Keychain. Either way the `url` option names the domain the credential is saved against, and it must be one of your `webcredentials:` associated domains.
+
 ## How to use
 ```ts
 import { Capacitor } from '@capacitor/core';
