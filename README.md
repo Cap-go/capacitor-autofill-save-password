@@ -108,6 +108,8 @@ On iOS 26.2 and later, `promptDialog` saves through [`ASCredentialDataManager`](
 
 Either way the `url` option names the domain the credential is saved against, and it must be one of the `webcredentials:` associated domains you set up above.
 
+On 26.2 and later you can also pass `title` to control the name the credential is filed under. Without it the password manager falls back to the bare domain, so users see `app.example.com` rather than your product name. The old API has no equivalent, so `title` is ignored below 26.2.
+
 ## API
 
 <docgen-index>
@@ -170,11 +172,12 @@ Get the native Capacitor plugin version.
 
 #### Options
 
-| Prop           | Type                | Description                                                                    |
-| -------------- | ------------------- | ------------------------------------------------------------------------------ |
-| **`username`** | <code>string</code> | The username to save.                                                          |
-| **`password`** | <code>string</code> | The password to save.                                                          |
-| **`url`**      | <code>string</code> | The url to save the password for. (For example: "console.capgo.app") iOS only. |
+| Prop           | Type                | Description                                                                                                                                         |
+| -------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`username`** | <code>string</code> | The username to save.                                                                                                                               |
+| **`password`** | <code>string</code> | The password to save.                                                                                                                               |
+| **`url`**      | <code>string</code> | The url to save the password for. (For example: "console.capgo.app") iOS only.                                                                      |
+| **`title`**    | <code>string</code> | The name the credential is filed under in the password manager. (For example: "Capgo"). Defaults to the domain from `url`. iOS 26.2 and later only. |
 
 
 #### ReadPasswordResult

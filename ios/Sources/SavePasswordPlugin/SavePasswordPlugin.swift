@@ -31,7 +31,13 @@ public class SavePasswordPlugin: CAPPlugin, CAPBridgedPlugin, ASAuthorizationCon
         }
 
         if #available(iOS 26.2, *) {
-            saveWithCredentialDataManager(call, username: username, password: password, url: url)
+            saveWithCredentialDataManager(
+                call,
+                username: username,
+                password: password,
+                url: url,
+                title: call.getString("title")
+            )
             return
         }
 
@@ -39,7 +45,9 @@ public class SavePasswordPlugin: CAPPlugin, CAPBridgedPlugin, ASAuthorizationCon
     }
 
     @available(iOS 26.2, *)
-    private func saveWithCredentialDataManager(_ call: CAPPluginCall, username: String, password: String, url: String) {
+    private func saveWithCredentialDataManager(
+        _ call: CAPPluginCall, username: String, password: String, url: String, title: String?
+    ) {
         Task { @MainActor in
             guard let anchor = self.bridge?.viewController?.view.window else {
                 call.reject("Failed to save credential", "No window to present the save prompt from")
@@ -49,6 +57,7 @@ public class SavePasswordPlugin: CAPPlugin, CAPBridgedPlugin, ASAuthorizationCon
                 try await ASCredentialDataManager().save(
                     password: ASPasswordCredential(user: username, password: password),
                     for: Self.autoFillScope(for: url),
+                    title: title,
                     anchor: anchor
                 )
                 call.resolve()

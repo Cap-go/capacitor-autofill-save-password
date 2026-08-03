@@ -16,6 +16,12 @@ export interface Options {
    * iOS only.
    */
   url?: string;
+  /**
+   * The name the credential is filed under in the password manager.
+   * (For example: "Capgo"). Defaults to the domain from `url`.
+   * iOS 26.2 and later only.
+   */
+  title?: string;
 }
 
 export interface ReadPasswordResult {
