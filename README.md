@@ -9,9 +9,7 @@ Prompt to display dialog for saving password to keychain from webview app
   <h2><a href="https://capgo.app/consulting/?ref=plugin_autofill_save_password"> Missing a feature? We’ll build the plugin for you 💪</a></h2>
 </div>
 
-Fork of original plugin to work with Capacitor 7 
-
-IOS work for old versions and 18.3
+Fork of original plugin to work with Capacitor 7+
 
 ## Documentation
 
@@ -63,10 +61,6 @@ Then add in your `App.entitlements`
 
 To associate your domain to your app.
 
-### iOS 26.2 and later
-
-`promptDialog` saves through [`ASCredentialDataManager`](https://developer.apple.com/documentation/authenticationservices/ascredentialdatamanager), which routes the save to whichever credential provider the user has chosen — iCloud Keychain or a third-party manager. Below 26.2 it falls back to `SecAddSharedWebCredential`, which Apple deprecated in 26.2 and which only ever writes to iCloud Keychain. Either way the `url` option names the domain the credential is saved against, and it must be one of your `webcredentials:` associated domains.
-
 ## How to use
 ```ts
 import { Capacitor } from '@capacitor/core';
@@ -107,6 +101,12 @@ with
     }]
     </string>
 ```
+
+### iOS
+
+On iOS 26.2 and later, `promptDialog` saves through [`ASCredentialDataManager`](https://developer.apple.com/documentation/authenticationservices/ascredentialdatamanager), which routes the save to whichever credential provider the user has chosen — iCloud Keychain or a third-party manager. Below 26.2 it falls back to `SecAddSharedWebCredential`, which Apple deprecated in 26.2 and which only ever writes to iCloud Keychain.
+
+Either way the `url` option names the domain the credential is saved against, and it must be one of the `webcredentials:` associated domains you set up above.
 
 ## API
 
