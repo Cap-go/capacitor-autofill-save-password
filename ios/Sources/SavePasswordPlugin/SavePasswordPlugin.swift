@@ -29,6 +29,57 @@ public class SavePasswordPlugin: CAPPlugin, CAPBridgedPlugin, ASAuthorizationCon
             call.reject("URL is required for iOS shared web credentials")
             return
         }
+
+        if #available(iOS 26.2, *) {
+            saveWithCredentialDataManager(
+                call,
+                username: username,
+                password: password,
+                url: url,
+                title: call.getString("title")
+            )
+            return
+        }
+
+        saveWithSharedWebCredential(call, username: username, password: password, url: url)
+    }
+
+    @available(iOS 26.2, *)
+    private func saveWithCredentialDataManager(
+        _ call: CAPPluginCall, username: String, password: String, url: String, title: String?
+    ) {
+        Task { @MainActor in
+            guard let anchor = self.bridge?.viewController?.view.window else {
+                call.reject("Failed to save credential", "No window to present the save prompt from")
+                return
+            }
+            do {
+                try await ASCredentialDataManager().save(
+                    password: ASPasswordCredential(user: username, password: password),
+                    for: Self.autoFillScope(for: url),
+                    title: title,
+                    anchor: anchor
+                )
+                call.resolve()
+            } catch {
+                call.reject("Failed to save credential", error.localizedDescription)
+            }
+        }
+    }
+
+    @available(iOS 26.2, *)
+    private static func autoFillScope(for url: String) -> ASAutoFillURLScope {
+        // `url` is documented as a bare FQDN, but tolerate a full URL rather than
+        // handing "https://example.com" to the host initialiser verbatim
+        guard let parsed = URL(string: url), parsed.scheme != nil,
+              let scope = ASAutoFillURLScope(url: parsed) else {
+            return ASAutoFillURLScope(host: url)
+        }
+        return scope
+    }
+
+    @available(iOS, deprecated: 26.2, message: "Superseded by ASCredentialDataManager")
+    private func saveWithSharedWebCredential(_ call: CAPPluginCall, username: String, password: String, url: String) {
         let fqdn = url as CFString
         let user = username as CFString
         let pass = password as CFString

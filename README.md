@@ -9,9 +9,7 @@ Prompt to display dialog for saving password to keychain from webview app
   <h2><a href="https://capgo.app/consulting/?ref=plugin_autofill_save_password"> Missing a feature? We’ll build the plugin for you 💪</a></h2>
 </div>
 
-Fork of original plugin to work with Capacitor 7 
-
-IOS work for old versions and 18.3
+Fork of original plugin to work with Capacitor 7+
 
 ## Documentation
 
@@ -104,6 +102,16 @@ with
     </string>
 ```
 
+### iOS
+
+On iOS 26.2 and later, `promptDialog` saves through [`ASCredentialDataManager`](https://developer.apple.com/documentation/authenticationservices/ascredentialdatamanager), which routes the save to whichever credential provider the user has chosen — iCloud Keychain or a third-party manager. Below 26.2 it falls back to `SecAddSharedWebCredential`, which Apple deprecated in 26.2 and which only ever writes to iCloud Keychain.
+
+Either way the `url` option names the domain the credential is saved against, and it must be one of the `webcredentials:` associated domains you set up above.
+
+Note the two paths differ in what they report back. `SecAddSharedWebCredential` surfaces a dismissed prompt as an error, so `promptDialog` rejects. `ASCredentialDataManager` only throws when the system rejects the update — Apple describe it as equivalent to submitting a password form, so the user's choice never reaches the app. On 26.2 and later, treat a resolved promise as "the system accepted the request", not as confirmation that the password was saved.
+
+On 26.2 and later you can also pass `title` to control the name the credential is filed under. Without it the password manager falls back to the bare domain, so users see `app.example.com` rather than your product name. The old API has no equivalent, so `title` is ignored below 26.2.
+
 ## API
 
 <docgen-index>
@@ -125,6 +133,12 @@ promptDialog(options: Options) => Promise<void>
 ```
 
 Save a password to the keychain.
+
+On iOS 26.2 and later, resolving means the system accepted the request —
+not that the credential was stored. The save prompt belongs to the system
+and the user's choice is not reported back, so do not treat a resolved
+promise as confirmation. Below 26.2, and on Android, dismissing the prompt
+rejects.
 
 | Param         | Type                                        | Description                     |
 | ------------- | ------------------------------------------- | ------------------------------- |
@@ -166,11 +180,12 @@ Get the native Capacitor plugin version.
 
 #### Options
 
-| Prop           | Type                | Description                                                                    |
-| -------------- | ------------------- | ------------------------------------------------------------------------------ |
-| **`username`** | <code>string</code> | The username to save.                                                          |
-| **`password`** | <code>string</code> | The password to save.                                                          |
-| **`url`**      | <code>string</code> | The url to save the password for. (For example: "console.capgo.app") iOS only. |
+| Prop           | Type                | Description                                                                                                                                         |
+| -------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`username`** | <code>string</code> | The username to save.                                                                                                                               |
+| **`password`** | <code>string</code> | The password to save.                                                                                                                               |
+| **`url`**      | <code>string</code> | The url to save the password for. (For example: "console.capgo.app") iOS only.                                                                      |
+| **`title`**    | <code>string</code> | The name the credential is filed under in the password manager. (For example: "Capgo"). Defaults to the domain from `url`. iOS 26.2 and later only. |
 
 
 #### ReadPasswordResult
