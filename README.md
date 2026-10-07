@@ -1,13 +1,29 @@
 # @capgo/capacitor-autofill-save-password
 
-Prompt to display dialog for saving password to keychain from webview app
+Show the native save password prompt after login in your Capacitor app, so credentials land in the user's password manager, such as iCloud Keychain or Google Password Manager. Users sign in faster next time with autofill.
 
-<a href="https://capgo.app/"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-autofill-save-password" alt="Capgo - Instant updates for Capacitor" /></a>
+<a href="https://capgo.app/?ref=plugin_autofill_save_password"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-autofill-save-password" alt="Capgo - Instant updates for Capacitor" /></a>
 
 <div align="center">
-  <h2><a href="https://capgo.app/?ref=plugin_autofill_save_password"> ➡️ Get Instant updates for your App with Capgo</a></h2>
-  <h2><a href="https://capgo.app/consulting/?ref=plugin_autofill_save_password"> Missing a feature? We’ll build the plugin for you 💪</a></h2>
+  <p><b>Capgo</b>: open-source live updates for Ionic and Capacitor apps. Ship OTA fixes and features instantly, without waiting for app store review.</p>
+  <h2><a href="https://capgo.app/register/?ref=plugin_autofill_save_password">➡️ Get started for free</a></h2>
+  <p>14-day unlimited free trial. No credit card required</p>
+  <p><a href="https://capgo.app/consulting/?ref=plugin_autofill_save_password">Missing a feature? We'll build the plugin for you 💪</a></p>
 </div>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Cap-go/capacitor-autofill-save-password/main/assets/github-social-preview.png" alt="@capgo/capacitor-autofill-save-password for Capacitor apps" width="300" />
+</p>
+
+## Key features
+
+- **Save prompt**: `promptDialog()` asks the OS to save the username and password.
+- **Read back**: `readPassword()` lets the user pick a saved password for your app.
+- **iOS**: uses AuthenticationServices. On iOS 26.2 and later the credential goes to the user's chosen credential provider through `ASCredentialDataManager`.
+- **Android**: uses the AndroidX Credential Manager.
+- **Platforms**: iOS and Android. Not available on web.
+
+Prompt to display dialog for saving password to keychain from webview app
 
 Fork of original plugin to work with Capacitor 7+
 
@@ -104,11 +120,11 @@ with
 
 ### iOS
 
-On iOS 26.2 and later, `promptDialog` saves through [`ASCredentialDataManager`](https://developer.apple.com/documentation/authenticationservices/ascredentialdatamanager), which routes the save to whichever credential provider the user has chosen — iCloud Keychain or a third-party manager. Below 26.2 it falls back to `SecAddSharedWebCredential`, which Apple deprecated in 26.2 and which only ever writes to iCloud Keychain.
+On iOS 26.2 and later, `promptDialog` saves through [`ASCredentialDataManager`](https://developer.apple.com/documentation/authenticationservices/ascredentialdatamanager), which routes the save to whichever credential provider the user has chosen, iCloud Keychain or a third-party manager. Below 26.2 it falls back to `SecAddSharedWebCredential`, which Apple deprecated in 26.2 and which only ever writes to iCloud Keychain.
 
 Either way the `url` option names the domain the credential is saved against, and it must be one of the `webcredentials:` associated domains you set up above.
 
-Note the two paths differ in what they report back. `SecAddSharedWebCredential` surfaces a dismissed prompt as an error, so `promptDialog` rejects. `ASCredentialDataManager` only throws when the system rejects the update — Apple describe it as equivalent to submitting a password form, so the user's choice never reaches the app. On 26.2 and later, treat a resolved promise as "the system accepted the request", not as confirmation that the password was saved.
+Note the two paths differ in what they report back. `SecAddSharedWebCredential` surfaces a dismissed prompt as an error, so `promptDialog` rejects. `ASCredentialDataManager` only throws when the system rejects the update, Apple describe it as equivalent to submitting a password form, so the user's choice never reaches the app. On 26.2 and later, treat a resolved promise as "the system accepted the request", not as confirmation that the password was saved.
 
 On 26.2 and later you can also pass `title` to control the name the credential is filed under. Without it the password manager falls back to the bare domain, so users see `app.example.com` rather than your product name. The old API has no equivalent, so `title` is ignored below 26.2.
 
