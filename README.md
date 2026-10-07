@@ -1,6 +1,6 @@
 # @capgo/capacitor-autofill-save-password
 
-Show the native save password prompt after login in your Capacitor app, so credentials land in iCloud Keychain or the Google Password Manager. Users sign in faster next time with autofill.
+Show the native save password prompt after login in your Capacitor app, so credentials land in the user's password manager, such as iCloud Keychain or Google Password Manager. Users sign in faster next time with autofill.
 
 <a href="https://capgo.app/?ref=plugin_autofill_save_password"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-autofill-save-password" alt="Capgo - Instant updates for Capacitor" /></a>
 
@@ -19,7 +19,7 @@ Show the native save password prompt after login in your Capacitor app, so crede
 
 - **Save prompt**: `promptDialog()` asks the OS to save the username and password.
 - **Read back**: `readPassword()` lets the user pick a saved password for your app.
-- **iOS**: uses the AuthenticationServices and Security frameworks.
+- **iOS**: uses AuthenticationServices. On iOS 26.2 and later the credential goes to the user's chosen credential provider through `ASCredentialDataManager`.
 - **Android**: uses the AndroidX Credential Manager.
 - **Platforms**: iOS and Android. Not available on web.
 
