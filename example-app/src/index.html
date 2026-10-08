@@ -1,30 +1,97 @@
 <!doctype html>
-<html lang="en" dir="ltr" class="hydrated">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    
     <meta
       name="viewport"
       content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
-<title>@capgo/capacitor-autofill-save-password</title>
-
-</head>
+    <title>@capgo/capacitor-autofill-save-password</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
   <body>
-    <main>
-      <h1>Capacitor Test Plugin Project</h1>
-      <p>
-        This project can be used to test out the functionality of your plugin. Nothing in the
-        <em>example-app/</em> folder will be published to npm when using this template, so you can create away!
-      </p>
-      <label for="usernameInput">Username:</label>
-      <input type="email" autocomplete="username" id="usernameInput" name="usernameInput" value="Hello World!" />
-      <label for="passwordInput">Password:</label>
-      <input type="password" autocomplete="current-password" id="passwordInput" name="passwordInput" value="Hello World!" />
-      <button onclick="testPromptDialog()">Click Me!</button>
-      <button onclick="readPassword()">Read Password</button>
+    <main class="shell">
+      <section class="hero">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">AS</div>
+          <div>
+            <p class="eyebrow">Capgo plugin example</p>
+            <h1>Autofill save password</h1>
+          </div>
+        </div>
+        <p class="lead">
+          Exercise the native save and read flows from a realistic login form. Use a device build to see system
+          autofill prompts; the web build surfaces plugin errors for quick wiring checks.
+        </p>
+        <div class="chip-row">
+          <span class="chip" id="platform-chip">Platform: …</span>
+          <span class="chip" id="native-chip" data-native="false">Native: …</span>
+        </div>
+      </section>
+
+      <section class="panel">
+        <p class="label">Login form</p>
+        <form id="login-form" class="form-grid" autocomplete="on">
+          <div class="field">
+            <label for="usernameInput">Email or username</label>
+            <input
+              type="email"
+              id="usernameInput"
+              name="username"
+              autocomplete="username"
+              inputmode="email"
+              value="demo@capgo.app"
+            />
+          </div>
+          <div class="field">
+            <label for="passwordInput">Password</label>
+            <input
+              type="password"
+              id="passwordInput"
+              name="password"
+              autocomplete="current-password"
+              value="CapgoDemo2026!"
+            />
+          </div>
+          <div class="field">
+            <label for="urlInput">Associated domain (iOS)</label>
+            <input type="text" id="urlInput" name="url" autocomplete="off" value="console.capgo.app" />
+            <p class="field-hint">Used as the credential domain on iOS. Requires associated domains in the app.</p>
+          </div>
+          <div class="field">
+            <label for="titleInput">Credential title (iOS 26.2+)</label>
+            <input type="text" id="titleInput" name="title" autocomplete="off" value="Capgo" />
+            <p class="field-hint">Optional label in the password manager. Defaults to the domain when omitted.</p>
+          </div>
+        </form>
+
+        <div class="actions">
+          <button type="button" id="btn-prompt">Save password (prompt)</button>
+          <button type="button" id="btn-read" class="secondary">Read saved password</button>
+          <button type="button" id="btn-version" class="secondary">Get plugin version</button>
+        </div>
+
+        <p class="label output-label">Result log</p>
+        <pre id="plugin-output">Tap a button to run a plugin method.</pre>
+      </section>
+
+      <section class="notes">
+        <h2>Platform notes</h2>
+        <ul>
+          <li>
+            <strong>iOS:</strong> Set up associated domains before <code>readPassword()</code>. On iOS 26.2 and later, a
+            resolved <code>promptDialog()</code> only means the system accepted the request, not that the user saved the
+            credential.
+          </li>
+          <li>
+            <strong>Android:</strong> Dismissing the save prompt rejects the promise. Saving uses the username, password,
+            and optional URL from the form.
+          </li>
+          <li><strong>Web:</strong> Native autofill APIs are unavailable here. Expect errors for save and read calls.</li>
+        </ul>
+      </section>
     </main>
 
     <script src="./js/example.js" type="module"></script>
